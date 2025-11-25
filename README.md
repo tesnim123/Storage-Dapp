@@ -25,7 +25,7 @@ A simple **decentralized application (DApp)** that allows users to **store and r
 
 ## 🔧 Getting Started 
 
-```bash
+
 1️⃣ Clone the repository
 git clone https://github.com/yourusername/Storage-Dapp.git
 cd Storage-Dapp
