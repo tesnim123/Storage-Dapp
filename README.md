@@ -23,11 +23,11 @@ A simple **decentralized application (DApp)** that allows users to **store and r
 
 ---
 
-## 🔧 Getting Started (All-in-One)
+## 🔧 Getting Started 
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/yourusername/Storage-Dapp.git
+git clone https://github.com/tesnim123/Storage-Dapp.git
 cd Storage-Dapp
 
 # 2️⃣ Install dependencies
@@ -53,3 +53,18 @@ yarn dev
 ## 📷 Screenshot
 
 ![Storage DApp Screenshot](./Screenshot.png)
+
+# Contract Information
+echo "Contract Address: 0xf363C8abE2df980ef54aD4Ca51346057dD3cb1c8"
+echo "Network: Sepolia Testnet"
+echo "Functions:"
+echo "  - store(uint256 num) -> Store a number"
+echo "  - retrieve() -> Retrieve the stored number"
+
+
+
+# Use Cases
+echo "Use Cases:"
+echo "  - Educational tool for learning blockchain development and smart contract interactions"
+echo "  - Starter template for building more complex Ethereum DApps"
+echo "  - Demonstrates wallet connection and secure on-chain storage in a simple, user-friendly interface"
