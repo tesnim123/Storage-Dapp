@@ -1,100 +1,157 @@
 "use client";
 
-import thirdwebIcon from "@public/thirdweb.svg";
-import Image from "next/image";
-import { ConnectButton } from "thirdweb/react";
+import { useState } from "react";
+import { useActiveAccount, ConnectButton } from "thirdweb/react";
 import { client } from "./client";
+import { createWallet, inAppWallet } from "thirdweb/wallets";
+import { getContract, readContract, prepareContractCall, sendTransaction, defineChain } from "thirdweb";
 
 export default function Home() {
+  const account = useActiveAccount();
+
+  const [storedValue, setStoredValue] = useState<bigint | null>(null);
+  const [newValue, setNewValue] = useState<string>("");
+
+  const contractAddress = "0xf363C8abE2df980ef54aD4Ca51346057dD3cb1c8";
+
+  const contract = getContract({
+    client,
+    chain: defineChain(11155111),
+    address: contractAddress,
+  });
+
+  async function getValue() {
+    const value = await readContract({
+      contract,
+      method: "function retrieve() view returns (uint256)",
+      params: [],
+    });
+    setStoredValue(value as bigint);
+  }
+
+  async function setValueOnChain() {
+    if (!account) return alert("Connect wallet first");
+    if (!newValue) return;
+
+    const tx = prepareContractCall({
+      contract,
+      method: "function store(uint256 num)",
+      params: [BigInt(newValue)],
+    });
+
+    await sendTransaction({ account, transaction: tx });
+    setNewValue("");
+    getValue();
+  }
+
+  const wallets = [
+    inAppWallet(),
+    createWallet("io.metamask"),
+    createWallet("com.coinbase.wallet"),
+    createWallet("me.rainbow"),
+  ];
+
   return (
-    <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
-      <div className="py-20">
-        <Header />
-
-        <div className="flex justify-center mb-20">
-          <ConnectButton
-            client={client}
-            appMetadata={{
-              name: "Example App",
-              url: "https://example.com",
-            }}
-          />
-        </div>
-
-        <ThirdwebResources />
-      </div>
-    </main>
-  );
-}
-
-function Header() {
-  return (
-    <header className="flex flex-col items-center mb-20 md:mb-20">
-      <Image
-        src={thirdwebIcon}
-        alt=""
-        className="size-[150px] md:size-[150px]"
-        style={{
-          filter: "drop-shadow(0px 0px 24px #a726a9a8)",
-        }}
-      />
-
-      <h1 className="text-2xl md:text-6xl font-semibold md:font-bold tracking-tighter mb-6 text-zinc-100">
-        thirdweb SDK
-        <span className="text-zinc-300 inline-block mx-1"> + </span>
-        <span className="inline-block -skew-x-6 text-blue-500"> Next.js </span>
-      </h1>
-
-      <p className="text-zinc-300 text-base">
-        Read the{" "}
-        <code className="bg-zinc-800 text-zinc-300 px-2 rounded py-1 text-sm mx-1">
-          README.md
-        </code>{" "}
-        file to get started.
-      </p>
-    </header>
-  );
-}
-
-function ThirdwebResources() {
-  return (
-    <div className="grid gap-4 lg:grid-cols-3 justify-center">
-      <ArticleCard
-        title="thirdweb SDK Docs"
-        href="https://portal.thirdweb.com/typescript/v5"
-        description="thirdweb TypeScript SDK documentation"
-      />
-
-      <ArticleCard
-        title="Components and Hooks"
-        href="https://portal.thirdweb.com/typescript/v5/react"
-        description="Learn about the thirdweb React components and hooks in thirdweb SDK"
-      />
-
-      <ArticleCard
-        title="thirdweb Dashboard"
-        href="https://thirdweb.com/dashboard"
-        description="Deploy, configure, and manage your smart contracts from the dashboard."
-      />
-    </div>
-  );
-}
-
-function ArticleCard(props: {
-  title: string;
-  href: string;
-  description: string;
-}) {
-  return (
-    <a
-      href={props.href + "?utm_source=next-template"}
-      target="_blank"
-      className="flex flex-col border border-zinc-800 p-4 rounded-lg hover:bg-zinc-900 transition-colors hover:border-zinc-700"
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #667eea, #764ba2)",
+        fontFamily: "Poppins, sans-serif",
+        color: "#fff",
+        padding: 20,
+      }}
     >
-      <article>
-        <h2 className="text-lg font-semibold mb-2">{props.title}</h2>
-        <p className="text-sm text-zinc-400">{props.description}</p>
-      </article>
-    </a>
+      <div
+        style={{
+          background: "rgba(255, 255, 255, 0.05)",
+          padding: "40px",
+          borderRadius: "20px",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
+          backdropFilter: "blur(10px)",
+          width: "100%",
+          maxWidth: "400px",
+          textAlign: "center",
+        }}
+      >
+        <h1 style={{ marginBottom: "20px", fontSize: "28px" }}>🌐 Storage DApp</h1>
+
+        <ConnectButton client={client} wallets={wallets} />
+
+        {!account ? (
+          <p style={{ marginTop: "20px" }}>Please connect your wallet to start.</p>
+        ) : (
+          <>
+            <h2 style={{ margin: "30px 0 15px" }}>Storage Contract</h2>
+
+            <button
+              onClick={getValue}
+              style={{
+                background: "linear-gradient(135deg, #f6d365, #fda085)",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "12px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                marginBottom: "15px",
+                color: "#333",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+                transition: "transform 0.2s",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              Get Stored Value
+            </button>
+
+            <p style={{ fontSize: "22px", marginBottom: "20px" }}>
+              Stored Value: {storedValue !== null ? storedValue.toString() : "?"}
+            </p>
+
+            <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap" }}>
+              <input
+                type="number"
+                value={newValue}
+                onChange={(e) => setNewValue(e.target.value)}
+                placeholder="Enter number"
+                style={{
+                  padding: "10px 15px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  background: "rgba(255,255,255,0.1)",
+                  color: "#fff",
+                  width: "150px",
+                  textAlign: "center",
+                  outline: "none",
+                  fontWeight: "500",
+                  backdropFilter: "blur(5px)",
+                }}
+              />
+
+              <button
+                onClick={setValueOnChain}
+                style={{
+                  background: "linear-gradient(135deg, #43e97b, #38f9d7)",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  color: "#333",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+                  transition: "transform 0.2s",
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              >
+                Store
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
