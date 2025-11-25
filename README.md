@@ -52,4 +52,4 @@ yarn dev
 ```
 ## 📷 Screenshot
 
-![Storage DApp Screenshot](./screenshot.png)
+![Storage DApp Screenshot](./Screenshot.png)
