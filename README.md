@@ -56,18 +56,18 @@ yarn dev
 ---
 ## Contract Information
 ```bash
-echo "Contract Address: 0xf363C8abE2df980ef54aD4Ca51346057dD3cb1c8"
-echo "Network: Sepolia Testnet"
-echo "Functions:"
-echo "  - store(uint256 num) -> Store a number"
-echo "  - retrieve() -> Retrieve the stored number"
+Contract Address: 0xf363C8abE2df980ef54aD4Ca51346057dD3cb1c8
+Network: Sepolia Testnet
+Functions:
+  - store(uint256 num) -> Store a number
+  - retrieve() -> Retrieve the stored number
 
 ```
 ---
 ## Use Cases
 ```bash
-echo "Use Cases:"
-echo "  - Educational tool for learning blockchain development and smart contract interactions"
-echo "  - Starter template for building more complex Ethereum DApps"
-echo "  - Demonstrates wallet connection and secure on-chain storage in a simple, user-friendly interface"
+Use Cases:
+  - Educational tool for learning blockchain development and smart contract interactions
+  - Starter template for building more complex Ethereum DApps
+  - Demonstrates wallet connection and secure on-chain storage in a simple, user-friendly interface
 ```
