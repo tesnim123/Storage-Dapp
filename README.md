@@ -49,7 +49,7 @@ yarn dev
 # 6️⃣ Interact with the contract
 #   - Click "Get Stored Value" to see the current number
 #   - Enter a number and click "Store" to save it on-chain
-
+```
 ## 📷 Screenshot
 
 ![Storage DApp Screenshot](./screenshot.png)
