@@ -1,58 +1,67 @@
-![tw-banner](https://github.com/thirdweb-example/next-starter/assets/57885104/20c8ce3b-4e55-4f10-ae03-2fe4743a5ee8)
+# 🌐 Storage DApp
 
-# thirdweb-next-starter
+A simple **decentralized application (DApp)** that allows users to **store and retrieve numeric values on the Ethereum blockchain**. Built with **React**, **Thirdweb SDK (v5)**, and **MetaMask**, this project demonstrates real-time interaction with smart contracts in a testnet environment.
 
-Starter template to build an onchain react native app with [thirdweb](https://thirdweb.com/) and [next](https://nextjs.org/).
+---
 
-## Installation
+## 🚀 Features
 
-Install the template using [thirdweb create](https://portal.thirdweb.com/cli/create)
+- **Connect Wallet:** Supports MetaMask, Coinbase Wallet, Rainbow Wallet, and in-app wallets.
+- **Retrieve Stored Value:** Read the current value stored in the smart contract instantly.
+- **Store New Value:** Input a number and store it securely on-chain.
+- **Sepolia Testnet Ready:** Experiment without spending real ETH.
+- **Modern UI:** Creative gradients, glassmorphism input fields, responsive layout.
 
-```bash
-  npx thirdweb create app --next
-```
+---
 
-## Environment Variables
+## 🛠️ Technologies Used
 
-To run this project, you will need to add the following environment variables to your .env file:
+- **React** – Frontend framework  
+- **Thirdweb SDK (v5)** – Smart contract interaction  
+- **Ethereum (Sepolia Testnet)** – Blockchain network for testing  
+- **MetaMask** – Wallet for connecting and signing transactions  
 
-`CLIENT_ID`
+---
 
-To learn how to create a client ID, refer to the [client documentation](https://portal.thirdweb.com/typescript/v5/client).
-
-## Run locally
-
-Install dependencies
-
-```bash
-yarn
-```
-
-Start development server
+## 🔧 Getting Started (All-in-One)
 
 ```bash
+# 1️⃣ Clone the repository
+git clone https://github.com/yourusername/Storage-Dapp.git
+cd Storage-Dapp
+
+# 2️⃣ Install dependencies
+npm install
+# or
+yarn install
+
+# 3️⃣ Setup environment variables
+echo "NEXT_PUBLIC_TEMPLATE_CLIENT_ID=your_thirdweb_client_id" > .env.local
+
+# 4️⃣ Run the development server
+npm run dev
+# or
 yarn dev
-```
 
-Create a production build
+# 5️⃣ Connect your wallet
+# Open the app in your browser, click "Connect Wallet", and select MetaMask or another supported wallet
 
-```bash
-yarn build
-```
+# 6️⃣ Interact with the contract
+#   - Click "Get Stored Value" to see the current number
+#   - Enter a number and click "Store" to save it on-chain
 
-Preview the production build
+# 7️⃣ Contract Information
+echo "Contract Address: 0xf363C8abE2df980ef54aD4Ca51346057dD3cb1c8"
+echo "Network: Sepolia Testnet"
+echo "Functions:"
+echo "  - store(uint256 num) -> Store a number"
+echo "  - retrieve() -> Retrieve the stored number"
 
-```bash
-yarn start
-```
+# 8️⃣ Screenshot
+# (Add your DApp screenshot to the project folder as 'screenshot.png')
 
-## Resources
-
-- [Documentation](https://portal.thirdweb.com/typescript/v5)
-- [Templates](https://thirdweb.com/templates)
-- [YouTube](https://www.youtube.com/c/thirdweb)
-- [Blog](https://blog.thirdweb.com)
-
-## Need help?
-
-For help or feedback, please [visit our support site](https://thirdweb.com/support)
+# 9️⃣ Use Cases
+echo "Use Cases:"
+echo "  - Educational tool for learning blockchain development and smart contract interactions"
+echo "  - Starter template for building more complex Ethereum DApps"
+echo "  - Demonstrates wallet connection and secure on-chain storage in a simple, user-friendly interface"
